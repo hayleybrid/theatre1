@@ -3,6 +3,9 @@
     session_start();
     include 'components/header.php';
     include 'account/auth/dbConfig.php';
+    if (!isset($_SESSION['loggedin']) {
+        header('Location: ../login/');
+        exit;
 ?>
 <!-- image loading -->
   <div class="bg-gray-50 flex items-center">
