@@ -1,5 +1,5 @@
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4 mb-12">
-    <article>
+    <!-- <article>
         <h2 class="text-2xl font-extrabold text-gray-900">BLOG</h2>
         <section class="mt-6 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-x-6 gap-y-8">
             <article class="relative w-full h-64 bg-cover bg-center group rounded-lg overflow-hidden shadow-lg hover:shadow-2xl  transition duration-300 ease-in-out"
@@ -37,7 +37,18 @@
                         </a>
                     </h3>
                 </div>
-            </article>
-        </section>
-    </article>
+            </article> -->
+        <!-- </section>
+    </article> -->
+  
+    <div class="grid min-h-screen place-content-left px-20 bg-slate-100">
+    <div class="h-96 w-96 rounded-lg border-b-4  p-6">
+      <div class="flex h-full flex-col justify-between">
+        <h1 class="text-6xl font-black text-slate-900">Latest</h1>
+        <p class="leading-relaxed text-slate-800">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores cupiditate facilis nemo ratione, nulla temporibus ea earum maiores odit! Nobis quos architecto nemo ab mollitia?</p>
+        <div class="flex">
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
