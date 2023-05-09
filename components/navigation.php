@@ -8,13 +8,13 @@ x-data="{open:false,menu:false, lokasi:false}">
       <div class="relative flex items-center justify-between h-40">
         <div class="flex items-center px-2 lg:px-0">
           <a class="flex-shrink-0" href="<?= ROOT_DIR ?>">
-            <img class="block lg:hidden h-12 w-16" src="<?= ROOT_DIR ?>assets/images/clyde_theatre.png" alt="Logo">
-            <img class="hidden lg:block h-12 w-auto" src="<?= ROOT_DIR ?>assets/images/clyde_theatre.png" alt="Logo">
+            <img class="block lg:hidden h-12 w-16" src="<?= ROOT_DIR ?>assets/images/clyde_theatre_tp.png" alt="Logo">
+            <img class="hidden lg:block h-12 w-auto" src="<?= ROOT_DIR ?>assets/images/clyde_theatre_tp.png" alt="Logo">
           </a>
           <div class="hidden lg:block lg:ml-2">
             <div class="flex">
               <?php if (!isset($_SESSION['loggedin'])): ?>
-                <a href="<?= ROOT_DIR ?>" class="ml-2 py-2 rounded-md text-sm leading-5 font-medium transition duration-150 ease-in-out cursor-pointer focus:outline-none focus:text-blue-900" style="color: blue-900">Clyde Theatre </a>
+                <a href="<?= ROOT_DIR ?>" class="ml-2 py-2 rounded-md text-sm leading-5 font-medium text-blue-900 transition duration-150 ease-in-out cursor-pointer focus:outline-none focus:text-blue-900" style="color: blue-900">Clyde Theatre </a>
                 <a href="<?= ROOT_DIR ?>blogs" class="ml-4 px-3 py-2 rounded-md text-sm leading-5 font-medium text-blue-900 hover:bg-yellow-500 hover:text-blue-900 transition duration-150 ease-in-out cursor-pointer focus:outline-none focus:text-blue-900 focus:bg-gray-700 "> Blogs </a>
                 <a href="<?= ROOT_DIR ?>contact" class="ml-4 px-3 py-2 rounded-md text-sm leading-5 font-medium text-blue-900 hover:bg-yellow-500 hover:text-blue-900 transition duration-150 ease-in-out cursor-pointer focus:outline-none focus:text-blue-900 focus:bg-gray-700 "> Contact </a>
                 <a href="<?= ROOT_DIR ?>login" class="ml-4 px-3 py-2 rounded-md text-sm leading-5 font-medium text-blue-900 hover:bg-yellow-500 hover:text-blue-900 transition duration-150 ease-in-out cursor-pointer focus:outline-none focus:text-blue-900 focus:bg-gray-700 "> Login </a>
