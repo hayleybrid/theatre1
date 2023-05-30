@@ -5,8 +5,8 @@
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
     //for use in class
-    define('ROOT_DIR', 'http://localhost:8040/theatre1/');
-    define('AUTH_DIR', 'http://localhost:8040/theatre1/account/dashboard/');
+    define('ROOT_DIR', 'http://localhost:8040/hayley/theatre1/');
+    define('AUTH_DIR', 'http://localhost:8040/hayley/theatre1/account/dashboard/');
    
 ?>
 <!doctype html>

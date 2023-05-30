@@ -5,15 +5,14 @@
     include '../account/auth/dbConfig.php';
 
     $blogID = $_GET['blog_id'];
-    $admin = $_SESSION['is_admin'];
-    echo $admin;
+
     $blogDetails = $conn->prepare('SELECT 
     b.id,
     b.title,
     b.blog_content,
     b.created_on,
     b.img_path
-   FROM userBlog ub
+   FROM userblog ub
    LEFT JOIN blog b ON ub.fk_blog_id = b.id
    where b.id= '. $blogID .'
    
@@ -102,7 +101,7 @@ $comments->bind_result($cID, $cHeading, $comment, $cDateAdded, $pending, $userna
                     <!-- this is the column that will diplay if they are not loggin in -->
                     <div class="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
                 <div class="px-8 mb-4 text-center">
-                <?php if ($admin == 1): ?>
+                <?php if ($_SESSION['is_admin'] == 1): ?>
                     <h3 class="pt-4 mb-2 text-2xl">You cannot comment whilst signed in as admin</h3>
                     <?php else: ?>
                     <h3 class="pt-4 mb-2 text-2xl">Leave a comment</h3>

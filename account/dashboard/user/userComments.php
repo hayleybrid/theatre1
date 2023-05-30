@@ -16,7 +16,7 @@
      b.img_path
      
      FROM comments c
-     LEFT JOIN userBlog ub ON c.fk_userBlog = ub.id
+     LEFT JOIN userblog ub ON c.fk_userBlog = ub.id
      LEFT JOIN blog b ON ub.fk_blog_id = b.id
      LEFT JOIN users u ON ub.fk_user_id = u.id
      where ub.fk_user_id = '.$userId .' 
@@ -26,10 +26,31 @@
      $userComments->store_result();
      $userComments->bind_result($cID, $cHeading, $comment, $cDateAdded, $pending, $userID, $imgPath);
      
+     $uid = $_SESSION['id'];
 
+     $userDetails = $conn->prepare("SELECT 
+           u.username,
+           u.active,
+           u.email,
+           count(distinct ub.fk_blog_id),
+           count(ub.fk_user_id)
+            FROM comments c
+            left join userblog ub ON c.fk_userBlog = ub.id 
+             left join users u on ub.fk_user_id = u.id
+             left join blog b on ub.fk_blog_id = b.id
+             WHERE ub.fk_user_id = $uid
+          
+     ");
+     $userDetails->execute();
+     $userDetails->store_result();
+     $userDetails->bind_result( $username, $active, $email, $totalBlogs, $totalComments);
+     $userDetails->fetch();
 ?>
-comments
-  <section class="bg-white dark:bg-gray-900">
+<div class="container mx-auto my-5 p-5">
+  <!-- account page inner container -->
+  <div class="md:flex no-wrap md:-mx-2 ">
+    <!-- sidebar -->
+  <section class="bg-white dark:bg-gray-900 w-full md:w-9/12 mx-2">
   <?php while ($userComments->fetch()): ?>
         <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
         <div class="hidden lg:mt-0 md:col-span-3 lg:flex">
@@ -55,6 +76,8 @@ comments
         </div>
         <?php endwhile ?>
     </section>
+                    </div>
+                    </div>
     <?php
      include '../../../components/footer.php';
     ?>

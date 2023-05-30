@@ -6,15 +6,28 @@
 
     $userId = $_GET['uid'];
 
-// edit user query
+    $users = $conn->prepare('SELECT 
+   
+    u.username,
+    u.email
 
+   FROM users u
+
+   where id = ' . $userId .'
+
+   
+  ');
+$users->execute();
+$users->store_result();
+$users->bind_result($userName, $userEmail);
+$users->fetch();
 
 // total comments for the selected user
 $commentCount = $conn->prepare('SELECT 
 	
 COUNT(fk_user_id)
 
-FROM userBlog
+FROM userblog
 WHERE fk_user_id ='. $userId .'
 ');
 $commentCount->execute();
@@ -22,11 +35,6 @@ $commentCount->store_result();
 $commentCount->bind_result($commentsTotal);
 $commentCount->fetch();
 
-$userDetails = $conn->prepare('SELECT * FROM users');
-$commentCount->execute();
-$commentCount->store_result();
-$commentCount->bind_result($userDetails);
-$commentCount->fetch();
 ?>
 <section class=" py-1 bg-blueGray-50">
 <div class="w-full lg:w-8/12 px-4 mx-auto mt-6">
@@ -36,16 +44,10 @@ $commentCount->fetch();
         <h6 class="text-blueGray-700 text-xl font-bold">
           My account
         </h6>
-        <button onclick="window.location.href='../../u/comments';" class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150" type="button">
-          User comments (<?=$commentsTotal ?>)
-        </button>
-        <button onclick="window.location.href='../allUsers';" class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150" type="button">
-          All users
-        </button>
       </div>
     </div>
     <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-      <form>
+      <form action="../updateUser/<?= $userId ?>" method="post" >
         <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
           User Information
         </h6>
@@ -55,7 +57,7 @@ $commentCount->fetch();
               <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                 Username
               </label>
-              <input type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
+              <input type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="<?= $userName ?>" name="username">
             </div>
           </div>
           <div class="w-full lg:w-6/12 px-4">
@@ -63,53 +65,17 @@ $commentCount->fetch();
               <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                 Email address
               </label>
-              <input type="email" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
+              <input type="email" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="<?= $userEmail ?>" name="email">
             </div>
           </div>
-          <div class="w-full lg:w-6/12 px-4">
-            <div class="relative w-full mb-3">
-              <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
-                First Name
-              </label>
-              <input type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
-            </div>
-          </div>
-          <div class="w-full lg:w-6/12 px-4">
-            <div class="relative w-full mb-3">
-              <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
-                Last Name
-              </label>
-              <input type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
-            </div>
-          </div>
+          <button  class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150" type="submit">Update User </button>
+
         </div>
-
-        <hr class="mt-6 border-b-1 border-blueGray-300">
-
-
 
         <hr class="mt-6 border-b-1 border-blueGray-300">
 
         <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-          About Me
-        </h6>
-        <div class="flex flex-wrap">
-          <div class="w-full lg:w-12/12 px-4">
-            <div class="relative w-full mb-3">
-              <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
-                About me
-              </label>
-              <textarea type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" rows="4"></textarea>
-            </div>
-          </div>
-        </div>
-        <input type="submit" class="rounded-3xl bg-yellow-400 bg-opacity-50 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-yellow-600" value="SAVE CHANGES">
-
-
-        <?php
-          $sql = "UPDATE MyGuests SET lastname=? WHERE id=?";
-
-        ?>
+        
       </form>
     </div>
   </div>

@@ -34,7 +34,7 @@
             <p class="mt-2 text-sm text-slate-500">View the status of all your reviews</p>
         </div>
 
-        <div onclick="window.location.href='../blogs'" class="p-10 flex flex-col items-center text-center group   md:lg:xl:border-b hover:bg-slate-50 cursor-pointer">
+        <div onclick="window.location.href='../blog'" class="p-10 flex flex-col items-center text-center group   md:lg:xl:border-b hover:bg-slate-50 cursor-pointer">
             <span class="p-5 rounded-full bg-yellow-500 text-white shadow-lg shadow-yellow-200"><svg
                     xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="1.5">

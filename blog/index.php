@@ -28,7 +28,7 @@ echo $blogID;
   <?php if (isset($_SESSION['loggedin']) == TRUE && ($_SESSION['is_admin']) == 1): ?>
   <div class="mt-3 flex items-end justify-center mb-10">
     <div class="flex items-center space-x-1.5 rounded-lg bg-blue-500 px-4 py-1.5 text-white duration-100 hover:bg-blue-600">
-      <button onclick="window.location.href='a/addBlog';" class="text-sm">ADD BLOG ARTICLE</button>
+      <button onclick="window.location.href='../a/addBlog';" class="text-sm">ADD BLOG ARTICLE</button>
     </div>
   </div>
   <?php endif ?>
@@ -41,7 +41,7 @@ echo $blogID;
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
 			<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
 		</svg>
-		<span>All Blogs</span>
+		<span>All Blogasdfass</span>
 	</a>
 	<a rel="noopener noreferrer" href="#" class="flex items-center flex-shrink-0 px-5 py-3 space-x-2 rounded-t-lg text-white">
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
@@ -86,7 +86,7 @@ echo $blogID;
           <div class="mt-3 flex items-end justify-between">
             <div class="flex items-center space-x-1.5 rounded-lg bg-blue-500 px-4 py-1.5 text-white duration-100 hover:bg-blue-600">
              
-            <button onclick="window.location.href='blogDetails/<?= $blogID ?>';" class="text-sm">READ MORE...</button>
+            <button onclick="window.location.href='../blogDetails/<?= $blogID ?>';" class="text-sm">READ MORE...</button>
 
             </div>
             

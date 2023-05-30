@@ -21,7 +21,7 @@ x-data="{open:false,menu:false, lokasi:false}">
                 <a href="<?= ROOT_DIR ?>register" class="ml-4 px-3 py-2 rounded-md text-sm leading-5 font-medium text-blue-900 hover:bg-yellow-500 hover:text-blue-900 transition duration-150 ease-in-out cursor-pointer focus:outline-none focus:text-blue-900 focus:bg-gray-700 "> Register </a>
               <?php else: ?>
                 <a href="<?= ROOT_DIR ?>" class="ml-4 px-3 py-2 rounded-md text-sm leading-5 font-medium text-blue-900 hover:bg-yellow-500 hover:text-blue-900 transition duration-150 ease-in-out cursor-pointer focus:outline-none focus:text-blue-900 focus:bg-gray-700 "> Home </a>
-                <a href="<?= ROOT_DIR ?>blogs" class="ml-4 px-3 py-2 rounded-md text-sm leading-5 font-medium text-blue-900 hover:bg-yellow-500 hover:text-blue-900 transition duration-150 ease-in-out cursor-pointer focus:outline-none focus:text-blue-900 focus:bg-gray-700 "> Blog </a>
+                <a href="<?= ROOT_DIR ?>blog" class="ml-4 px-3 py-2 rounded-md text-sm leading-5 font-medium text-blue-900 hover:bg-yellow-500 hover:text-blue-900 transition duration-150 ease-in-out cursor-pointer focus:outline-none focus:text-blue-900 focus:bg-gray-700 "> Blog </a>
                     <?php if ($_SESSION['is_admin'] == 1): ?>
 
                       <a href="<?= ROOT_DIR ?>a/pendingComments" class="ml-4 px-3 py-2 rounded-md text-sm leading-5 font-medium text-blue-900 hover:bg-yellow-500 hover:text-blue-900 transition duration-150 ease-in-out cursor-pointer focus:outline-none focus:text-blue-900 focus:bg-gray-700 "> Pending Reviews </a>
