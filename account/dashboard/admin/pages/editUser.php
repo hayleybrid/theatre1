@@ -1,8 +1,8 @@
 <?php 
     session_start();
-    include '../../auth/dbConfig.php';
-    include '../../../components/header.php';
-    include '../../../components/navigation.php'; 
+    include '../../../auth/dbConfig.php';
+    include '../../../../components/header.php';
+    include '../../../../components/navigation.php'; 
 
     $userId = $_GET['uid'];
 
@@ -99,7 +99,7 @@ $commentCount->fetch();
               <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                 About me
               </label>
-              <textarea type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" rows="4"> A beautiful UI Kit and Admin for JavaScript &amp; Tailwind CSS. It is Freeand Open Source.</textarea>
+              <textarea type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" rows="4"></textarea>
             </div>
           </div>
         </div>
@@ -115,5 +115,5 @@ $commentCount->fetch();
   </div>
 </div>
 </section>
-<?php include '../../../components/footer.php'; ?>
+<?php include '../../../../components/footer.php'; ?>
 

@@ -1,64 +1,151 @@
 <?php 
     session_start();
+    include '../account/auth/dbConfig.php';
     include '../components/header.php';
     include '../components/navigation.php';
-    include '../account/auth/dbConfig.php';
+    
+
+    $blog = $conn->prepare('SELECT 
+	
+    b.id,
+    b.title,
+    b.blog_content,
+    b.created_on,
+    b.img_path,
+    b.show_name,
+    b.published
+
+   FROM blog b 
+   order by b.published DESC ');
+
+$blog->execute();
+$blog->store_result();
+$blog->bind_result($blogID, $blogTitle, $blogContent, $blogCreated, $imgPath, $showName, $published);
+echo $blogID;
 ?>
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4 mb-12">
-   
-<div class="text-gray-900 pt-12 pr-0 pb-14 pl-0 ">
-  <div class="w-full pt-4 pr-5 pb-6 pl-5 mt-0 mr-auto mb-0 ml-auto space-y-5 sm:py-8 md:py-12 sm:space-y-8 md:space-y-16
-      max-w-7xl">
-      </div>
-          <a class="text-5xl text-blue-900 font-bold leading-none ">Blogs</a>
-</div>
-    <!-- annie image -->
-    <div class="grid grid-cols-12 sm:px-5 gap-x-8 gap-y-16">
-      <div class="flex flex-col items-start col-span-12 space-y-3 sm:col-span-6 xl:col-span-4">
-        <img
-            src="<?= ROOT_DIR ?>assets/images/shows/annie.jpeg" class="object-cover w-full mb-2 overflow-hidden rounded-lg shadow-sm max-h-56 btn-"/>
-        <p class="bg-green-500 flex items-center leading-none text-sm font-medium text-gray-50 pt-1.5 pr-3 pb-1.5 pl-3
-            rounded-full uppercase inline-block">Entertainment</p>
-        <a class="text-lg font-bold sm:text-xl md:text-2xl">Improving your day to the MAX</a>
-        <p class="text-sm text-black">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
-        <div class="pt-2 pr-0 pb-0 pl-0">
-          <a class="inline text-xs font-medium mt-0 mr-1 mb-0 ml-0 underline">Jack Sparrow</a>
-          <p class="inline text-xs font-medium mt-0 mr-1 mb-0 ml-1">· 23rd, March 2021 ·</p>
-          <p class="inline text-xs font-medium text-gray-300 mt-0 mr-1 mb-0 ml-1">1hr 20min. read</p>
-        </div>
-      </div>
-      <div class="flex flex-col items-start col-span-12 space-y-3 sm:col-span-6 xl:col-span-4">
-        <img
-            src="<?= ROOT_DIR ?>assets/images/shows/pretty_woman.jpeg" class="object-cover w-full mb-2 overflow-hidden rounded-lg shadow-sm max-h-56 btn-"/>
-        <p class="bg-green-500 flex items-center leading-none text-sm font-medium text-gray-50 pt-1.5 pr-3 pb-1.5 pl-3
-            rounded-full uppercase inline-block">Entertainment</p>
-        <a class="text-lg font-bold sm:text-xl md:text-2xl">Improving your day to the MAX</a>
-        <p class="text-sm text-black">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
-        <div class="pt-2 pr-0 pb-0 pl-0">
-          <a class="inline text-xs font-medium mt-0 mr-1 mb-0 ml-0 underline">Jack Sparrow</a>
-          <p class="inline text-xs font-medium mt-0 mr-1 mb-0 ml-1">· 23rd, March 2021 ·</p>
-          <p class="inline text-xs font-medium text-gray-300 mt-0 mr-1 mb-0 ml-1">1hr 20min. read</p>
-        </div>
-      </div>
-      <div class="flex flex-col items-start col-span-12 space-y-3 sm:col-span-6 xl:col-span-4">
-        <img
-            src="<?= ROOT_DIR ?>assets/images/shows/dirty_dancing.jpeg" class="object-cover w-full mb-2 overflow-hidden rounded-lg shadow-sm max-h-56 btn-"/>
-        <p class="bg-green-500 flex items-center leading-none text-sm font-medium text-gray-50 pt-1.5 pr-3 pb-1.5 pl-3
-            rounded-full uppercase inline-block">Entertainment</p>
-        <a class="text-lg font-bold sm:text-xl md:text-2xl">Improving your day to the MAX</a>
-        <p class="text-sm text-black">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
-        <div class="pt-2 pr-0 pb-0 pl-0">
-          <a class="inline text-xs font-medium mt-0 mr-1 mb-0 ml-0 underline">Jack Sparrow</a>
-          <p class="inline text-xs font-medium mt-0 mr-1 mb-0 ml-1">· 23rd, March 2021 ·</p>
-          <p class="inline text-xs font-medium text-gray-300 mt-0 mr-1 mb-0 ml-1">1hr 20min. read</p>
-        </div>
-      </div>
+<div class="pt-12" style="background-image: url('<?= ROOT_DIR ?>assets/images/login_bg.jpg'); background-size: cover; background-position: center;">
+  <!-- only show if admin -->
+  <?php if (isset($_SESSION['loggedin']) == TRUE && ($_SESSION['is_admin']) == 1): ?>
+  <div class="mt-3 flex items-end justify-center mb-10">
+    <div class="flex items-center space-x-1.5 rounded-lg bg-blue-500 px-4 py-1.5 text-white duration-100 hover:bg-blue-600">
+      <button onclick="window.location.href='a/addBlog';" class="text-sm">ADD BLOG ARTICLE</button>
     </div>
   </div>
+  <?php endif ?>
+<h1 class="text-center text-2xl font-bold text-white">All Blog Articles</h1>
+
+
+<!-- Tab Menu -->
+<div class="flex flex-wrap items-center  overflow-x-auto overflow-y-hidden py-10 justify-center text-white">
+	<a rel="noopener noreferrer" href="#" class="flex items-center flex-shrink-0 px-5 py-3 space-x-2 text-white">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+			<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+		</svg>
+		<span>All Blogs</span>
+	</a>
+	<a rel="noopener noreferrer" href="#" class="flex items-center flex-shrink-0 px-5 py-3 space-x-2 rounded-t-lg text-white">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+			<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+			<path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+		</svg>
+		<span>Comedy</span>
+	</a>
+	<a rel="noopener noreferrer" href="#" class="flex items-center flex-shrink-0 px-5 py-3 space-x-2  text-white">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+			<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+		</svg>
+		<span>Musicals</span>
+	</a>
+	<a rel="noopener noreferrer" href="#" class="flex items-center flex-shrink-0 px-5 py-3 space-x-2  text-white">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+			<circle cx="12" cy="12" r="10"></circle>
+			<polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+		</svg>
+		<span>Opera</span>
+	</a>
 </div>
+
+  </div>
+<!-- Product List -->
+<section class="py-10 bg-gray-100">
+  <div class="mx-auto grid max-w-6xl  grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+  <?php while ($blog->fetch()): ?>
+    <?php if (isset($_SESSION['loggedin']) == TRUE && ($_SESSION['is_admin']) == 1): ?>
+
+  <article class="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300 ">
+      
+        <div class="relative flex items-end overflow-hidden rounded-xl">
+          <img src="<?= ROOT_DIR ?>assets/images/shows/<?= $imgPath ?>" alt="<?= $showName ?>" />
+        </div>
+
+        <div class="mt-1 p-2">
+          <h2 class="text-slate-700"><?= $blogTitle ?></h2>
+          <p class="mt-1 text-sm text-slate-400 blog-content">
+            <?= $blogContent ?>
+          </p>
+          <div class="mt-3 flex items-end justify-between">
+            <div class="flex items-center space-x-1.5 rounded-lg bg-blue-500 px-4 py-1.5 text-white duration-100 hover:bg-blue-600">
+             
+            <button onclick="window.location.href='blogDetails/<?= $blogID ?>';" class="text-sm">READ MORE...</button>
+
+            </div>
+            
+          </div>
+          <hr class="mt-6 mb-6">
+          <?php if($published == 1): ?>
+          <p class="mt-1 text-md text-green-400 blog-content">
+            Published
+          </p>
+          <?php else: ?>
+            <p class="mt-1 text-md text-red-900 blog-content">
+            Not Published
+          </p>
+          <?php endif ?>
+         
+
+          <div class="mt-3 flex items-end justify-between">
+              <?php if($published == 1): ?>
+            <div class="flex items-center space-x-1.5 rounded-lg bg-slate-500 px-4 py-1.5 text-white duration-100 hover:bg-slate-600">
+              <button onclick="window.location.href='<?= ROOT_DIR ?>account/dashboard/admin/config/unpublishBlog.php?bid=<?= $blogID ?>';" class="text-sm">UNPUBLISH</button>
+            </div>
+            <?php else: ?>
+              <div class="flex items-center space-x-1.5 rounded-lg bg-slate-500 px-4 py-1.5 text-white duration-100 hover:bg-slate-600">
+              <button onclick="window.location.href='<?= ROOT_DIR ?>account/dashboard/admin/config/publishBlog.php?bid=<?= $blogID ?>';" class="text-sm">PUBLISH</button>
+            </div>
+            <?php endif ?>
+          </div>
+        
+        </div>
+      
+    </article>
+    <?php elseif($published == 1): ?>
+        <article class="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300 ">
+      
+      <div class="relative flex items-end overflow-hidden rounded-xl">
+        <img src="<?= ROOT_DIR ?>assets/images/shows/<?= $imgPath ?>" alt="<?= $showName ?>" />
+      </div>
+
+      <div class="mt-1 p-2">
+        <h2 class="text-slate-700"><?= $blogTitle ?></h2>
+        <p class="mt-1 text-sm text-slate-400 blog-content">
+          <?= $blogContent ?>
+        </p>
+        <div class="mt-3 flex items-end justify-between">
+          <div class="flex items-center space-x-1.5 rounded-lg bg-blue-500 px-4 py-1.5 text-white duration-100 hover:bg-blue-600">
+           
+          <button onclick="window.location.href='blogDetails/<?= $blogID ?>';" class="text-sm">READ MORE...</button>
+
+          </div>
+          
+        </div>
+        
+      
+      </div>
+    
+  </article>
+    <?php endif ?>
+    <?php endwhile ?>
+  
 </section>
 <?php
     include '../components/footer.php';

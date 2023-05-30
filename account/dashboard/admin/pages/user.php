@@ -1,8 +1,8 @@
 <?php 
     session_start(); 
-    include '../../auth/dbConfig.php';
-    include '../../../components/header.php'; 
-    include '../../../components/navigation.php'; 
+    include '../../../auth/dbConfig.php';
+    include '../../../../components/header.php'; 
+    include '../../../../components/navigation.php'; 
 
     $users = $conn->prepare('SELECT 
         u.id,
@@ -242,4 +242,4 @@ could also send it to a differnet page that looks like a popup redirects back if
 
 
     </script>
-  <?php include '../../../components/footer.php'; ?>
+  <?php include '../../../../components/footer.php'; ?>
